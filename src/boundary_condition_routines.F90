@@ -267,6 +267,7 @@ MODULE BOUNDARY_CONDITIONS_ROUTINES
 
   PUBLIC BoundaryConditions_ConstrainNodeDofsEqual
 
+
 CONTAINS
 
   !
@@ -3093,16 +3094,17 @@ CONTAINS
     RETURN 1
   END SUBROUTINE BOUNDARY_CONDITIONS_SET_NODE
 
+
   !
   !================================================================================================================================
   !
 
   !>Constrain multiple equations dependent field DOFs to be a single solver DOF in the solver equations
-  SUBROUTINE BoundaryConditions_ConstrainDofsEqual(boundaryConditions,fieldVariable,globalDofs,coefficient,err,error,*)
+  SUBROUTINE BoundaryConditions_ConstrainDofsEqual(boundaryConditions,fieldVariable,globalDofs ,coefficient,err,error,*)
 
     !Argument variables
     TYPE(BOUNDARY_CONDITIONS_TYPE), POINTER, INTENT(IN) :: boundaryConditions !<The boundary conditions for the solver equations in which to constrain the DOF.
-    TYPE(FIELD_VARIABLE_TYPE), POINTER, INTENT(IN) :: fieldVariable !<A pointer to the field variable containing the DOFs.
+     TYPE(FIELD_VARIABLE_TYPE), POINTER, INTENT(IN) :: fieldVariable !<A pointer to the field variable containing the DOFs.
     INTEGER(INTG), INTENT(IN) :: globalDofs(:) !<The global DOFs to be constrained to be equal.
     REAL(DP), INTENT(IN) :: coefficient !<The coefficient of constraint.
     INTEGER(INTG), INTENT(OUT) :: err !<The error code.
@@ -3311,6 +3313,8 @@ CONTAINS
 998 ERRORSEXITS("BoundaryConditions_DofConstraintSet",err,error)
     RETURN 1
   END SUBROUTINE BoundaryConditions_DofConstraintSet
+
+
 
   !
   !================================================================================================================================

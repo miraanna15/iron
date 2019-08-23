@@ -959,6 +959,7 @@ MODULE OpenCMISS_Iron
     MODULE PROCEDURE cmfe_BoundaryConditions_ConstrainNodeDofsEqualObj
   END INTERFACE cmfe_BoundaryConditions_ConstrainNodeDofsEqual
 
+
   PUBLIC CMFE_BOUNDARY_CONDITION_FREE,CMFE_BOUNDARY_CONDITION_FIXED, &
     & CMFE_BOUNDARY_CONDITION_FIXED_WALL,CMFE_BOUNDARY_CONDITION_FIXED_INLET,CMFE_BOUNDARY_CONDITION_MOVED_WALL, &
     & CMFE_BOUNDARY_CONDITION_FREE_WALL,CMFE_BOUNDARY_CONDITION_FIXED_OUTLET,CMFE_BOUNDARY_CONDITION_MOVED_WALL_INCREMENTED, &
@@ -984,6 +985,7 @@ MODULE OpenCMISS_Iron
   PUBLIC cmfe_BoundaryConditions_NeumannSparsityTypeSet
 
   PUBLIC cmfe_BoundaryConditions_ConstrainNodeDofsEqual
+
 
 !!==================================================================================================================================
 !!
@@ -2587,6 +2589,8 @@ MODULE OpenCMISS_Iron
     & EQUATIONS_SET_MULTISCALE_ACTIVE_STRAIN_SUBTYPE !< Isotropic active strain constitutive law based on multiplicative decomposition of the deformation gradient and the cellular model of Razumova et al. (2000) subtype \see OpenCMISS_EquationsSetSubtypes,OpenCMISS
   INTEGER(INTG), PARAMETER :: CMFE_EQUATIONS_SET_REFERENCE_STATE_MOONEY_RIVLIN_SUBTYPE = &
     & EQUATIONS_SET_REFERENCE_STATE_MOONEY_RIVLIN_SUBTYPE !< Determine the reference configuration using Mooney-Rivlin constitutive law for finite elasticity equations set subtype \see OpenCMISS_EquationsSetSubtypes,OpenCMISS
+  INTEGER(INTG), PARAMETER :: CMFE_EQUATIONS_SET_REFERENCE_STATE_ISO_EXPONENTIAL_SUBTYPE = &
+    & EQUATIONS_SET_REFERENCE_STATE_ISO_EXPONENTIAL_SUBTYPE !< Determine the reference configuration using exponential constitutive law for finite elasticity equations set subtype \see OpenCMISS_EquationsSetSubtypes,OpenCMISS
   INTEGER(INTG), PARAMETER :: CMFE_EQUATIONS_SET_REFERENCE_STATE_TRANSVERSE_GUCCIONE_SUBTYPE = &
     & EQUATIONS_SET_REFERENCE_STATE_TRANSVERSE_GUCCIONE_SUBTYPE !< Transverse isotropic Guccione constitutive law for finite elasticity equstions set subtype \see OpenCMISS_EquationsSetSubtypes,OpenCMISS
   INTEGER(INTG), PARAMETER :: CMFE_EQUATIONS_SET_GUCCIONE_ACTIVECONTRACTION_SUBTYPE = &
@@ -3124,6 +3128,7 @@ MODULE OpenCMISS_Iron
     & CMFE_EQUATIONS_SET_INCOMPRESSIBLE_MOONEY_RIVLIN_SUBTYPE,CMFE_EQUATIONS_SET_NEARLY_INCOMPRESSIBLE_MOONEY_RIVLIN_SUBTYPE, &
     & CMFE_EQUATIONS_SET_MOONEY_RIVLIN_SUBTYPE, &
     & CMFE_EQUATIONS_SET_REFERENCE_STATE_MOONEY_RIVLIN_SUBTYPE, CMFE_EQUATIONS_SET_ISOTROPIC_EXPONENTIAL_SUBTYPE, &
+    & CMFE_EQUATIONS_SET_REFERENCE_STATE_ISO_EXPONENTIAL_SUBTYPE, &
     & CMFE_EQUATIONS_SET_ACTIVECONTRACTION_SUBTYPE,CMFE_EQUATIONS_SET_MOONEY_RIVLIN_ACTIVECONTRACTION_SUBTYPE, &
     & CMFE_EQUATIONS_SET_COMPRESSIBLE_ACTIVECONTRACTION_SUBTYPE,CMFE_EQUATIONS_SET_TRANSVERSE_ISOTROPIC_ACTIVE_SUBTYPE, &
     & CMFE_EQUATIONS_SET_TRANS_ISOTROPIC_ACTIVE_TRANSITION_SUBTYPE, &
@@ -13131,6 +13136,8 @@ CONTAINS
 
   END SUBROUTINE cmfe_BoundaryConditions_ConstrainNodeDofsEqualNumber
 
+
+
   !
   !================================================================================================================================
   !
@@ -13142,8 +13149,8 @@ CONTAINS
 
     !Argument variables
     TYPE(cmfe_BoundaryConditionsType), INTENT(IN) :: boundaryConditions !<The boundary conditions to constrain the DOFs in.
-    TYPE(cmfe_FieldType), INTENT(IN) :: field !<The equations dependent field containing the field DOFs to be constrained.
-    INTEGER(INTG), INTENT(IN) :: fieldVariableType !<The field variable type of the DOFs to be constrained. \see OpenCMISS_FieldVariableTypes
+    TYPE(cmfe_FieldType), INTENT(IN) :: field !<The equations of the first dependent field containing the field DOFs to be constrained.
+    INTEGER(INTG), INTENT(IN) :: fieldVariableType !<The first field variable type of the DOFs to be constrained. \see OpenCMISS_FieldVariableTypeses
     INTEGER(INTG), INTENT(IN) :: versionNumber !<The derivative version number.
     INTEGER(INTG), INTENT(IN) :: derivativeNumber !<The derivative number.
     INTEGER(INTG), INTENT(IN) :: component !<The field component number of the DOFs to be constrained.
@@ -13164,6 +13171,8 @@ CONTAINS
     RETURN
 
   END SUBROUTINE cmfe_BoundaryConditions_ConstrainNodeDofsEqualObj
+
+
 
 !!==================================================================================================================================
 !!
