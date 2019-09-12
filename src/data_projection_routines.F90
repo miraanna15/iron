@@ -4514,7 +4514,8 @@ CONTAINS
         startingXi(1:dataProjection%datapoints%numberOfDatapoints,SIZE(dataProjection%startingXi,1):dataProjection%numberOfXi)= &
           & 0.5_DP
       ELSE
-        startingXi(1:dataProjection%datapoints%numberOfDatapoints,1:SIZE(dataProjection%startingXi,1))= &
+
+        startingXi(1:dataProjection%datapoints%numberOfDatapoints,1:SIZE(dataProjection%startingXi,2))= &
           & dataProjection%startingXi(1:dataProjection%datapoints%numberOfDatapoints,1:dataProjection%numberOfXi)
       ENDIF
       IF(ALLOCATED(dataProjection%startingXi)) DEALLOCATE(dataProjection%startingXi)
